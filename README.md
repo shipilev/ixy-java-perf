@@ -31,9 +31,8 @@ UnsafeProblem1.test_static        avgt    9  19.492 ± 0.118  ns/op
 UnsafeProblem1.test_static_final  avgt    9   6.355 ± 0.036  ns/op <--- this is what it should be doing
 ```
 
-The key to `Unsafe` performance is idiomatic use: the instance should be in `static final`.
-After that, the weakest (but not weaker) mode has to be chosen. But even if overly strong
-mode is chosen, `static final`-ing the `Unsafe` instance would enable some optimizations.
+The key to `Unsafe` performance is idiomatic use: it relies heavily on the JIT compiler being able
+to nuke down everything to the raw memory accesses. Part of that story is null-checking the `Unsafe` instance itself. When compiler is not sure about it, compiler would emit null-checks and then barrier coalescing would break.
 
 Sample perfasm for `test_final`:
 
@@ -95,8 +94,10 @@ UnsafeProblem2.test_release   avgt    9  0.841 ± 0.011  ns/op
 UnsafeProblem2.test_volatile  avgt    9  6.966 ± 0.026  ns/op  <--- this is what ixy.java does now 
 ```
 
-Really, _any other_ access mode is better than full-blown `volatile` (that implies sequential consistency
-and makes very heavy barriers) is more useful. For driver use, `opaque` or `release` should be sufficient. 
+Unsafe provides the variety of access modes, and going volatile is excessive on many paths. Notably, when C-like volatile access is needed, it is cheaper to do opaque Unsafe access to match both semantics and memory ordering requirements better. If memory ordering is still needed, then release might be a better option for acquire-release semantics, which skips the heavy-weight memory barrier on x86_64.
+
+Really, _any other_ access mode is more performant than full-blown `volatile`, which implies sequential consistency
+and makes very heavy barriers.
 
 Sample perfasm for `test_volatile`:
 

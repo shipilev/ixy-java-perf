@@ -1,6 +1,6 @@
 # ixy.java Patterns Performance
 
-This captures a few patterns that ixy.java might use to run better.
+This captures a few patterns that [ixy.java](https://github.com/ixy-languages/ixy.java) might use to run better.
 
 ## Build and Run
 
@@ -83,6 +83,8 @@ Sample perfasm for `test_static_final`:
          ╰  0x00007f76585242dc: je     0x00007f76585242a0  
 ```
 
+Reported as [ixy.java #5](https://github.com/ixy-languages/ixy.java/issues/5).
+
 ### Unsafe Problem 2: Access Modes
 
 ```
@@ -123,3 +125,4 @@ Sample perfasm for `test_release`:
          ╰  0x00007fe1a45223a1: je     0x00007fe1a4522380  
 ```
 
+Reported as [ixy.java #6](https://github.com/ixy-languages/ixy.java/issues/6).

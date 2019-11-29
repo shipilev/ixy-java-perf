@@ -32,29 +32,21 @@ public class UnsafeProblem2 {
     @Benchmark
     public void test_plain() {
         U.putByte(null, addr, (byte) 42);
-        U.putByte(null, addr + 64, (byte) 43);
-        U.putByte(null, addr + 128, (byte) 44);
     }
 
     @Benchmark
     public void test_opaque() {
         U.putByteOpaque(null, addr, (byte) 42);
-        U.putByteOpaque(null, addr + 64, (byte) 43);
-        U.putByteOpaque(null, addr + 128, (byte) 44);
     }
 
     @Benchmark
     public void test_release() {
         U.putByteRelease(null, addr, (byte) 42);
-        U.putByteRelease(null, addr + 64, (byte) 43);
-        U.putByteRelease(null, addr + 128, (byte) 44);
     }
 
     @Benchmark
     public void test_volatile() {
         U.putByteVolatile(null, addr, (byte) 42);
-        U.putByteVolatile(null, addr + 64, (byte) 43);
-        U.putByteVolatile(null, addr + 128, (byte) 44);
     }
 
 }

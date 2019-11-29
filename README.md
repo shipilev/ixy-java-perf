@@ -21,7 +21,7 @@ $ java -jar target/benchmarks.jar -f 1 -prof perfasm
 
 ## Captured Problems
 
-### Unsafe Problem 1: Finality
+### Unsafe Problem 1: Constness
 
 ```
 Benchmark                         Mode  Cnt   Score   Error  Units

@@ -2,14 +2,16 @@
 
 This captures a few patterns that ixy.java might use to run better.
 
-## Running the benchmark
+## Build and Run
+
+The benchmark use JMH, and require JDK 11+ to compile and run. 
 
 ```
 $ mvn clean install
 $ java -jar target/benchmarks.jar [test regexp, if needed]
 ```
 
-## Profiling the benchmark
+## Profiling
 
 Get hsdis disassembly plugin, and then run:
 
